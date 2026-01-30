@@ -1,0 +1,157 @@
+/**
+ * ============================================================================
+ * INDEX.CSS - Global Styles & Tailwind Configuration
+ * ============================================================================
+ * 
+ * This file contains:
+ * 1. Google Fonts import (Inter)
+ * 2. Tailwind CSS directives
+ * 3. Base layer customizations
+ * 4. Custom utility classes
+ * 5. Custom animations (float, marquee, spin)
+ * 
+ * TAILWIND LAYERS:
+ * - @layer base: Default HTML element styles
+ * - @layer components: Reusable component classes
+ * - @layer utilities: Single-purpose utility classes
+ * 
+ * CUSTOM ANIMATIONS:
+ * - .animate-float: Gentle up/down bobbing (4s cycle)
+ * - .animate-marquee: Horizontal scrolling ticker (30s cycle)
+ * - .animate-spin-slow: Slow rotation (20s cycle)
+ */
+
+/* ============================================================================
+   FONT IMPORT
+   ============================================================================
+   Inter - Modern, clean sans-serif font
+   Weights: 300 (Light), 400 (Regular), 500 (Medium), 600 (Semibold), 
+            700 (Bold), 800 (Extrabold)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================================================
+   TAILWIND DIRECTIVES
+   ============================================================================
+   These inject Tailwind's base styles, component classes, and utilities.
+   Order matters: base → components → utilities
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   BASE LAYER CUSTOMIZATIONS
+   ============================================================================
+   Styles that apply to raw HTML elements.
+*/
+@layer base {
+
+    /* Global body styles */
+    body,
+    html,
+    #root {
+        font-family: 'Inter', sans-serif;
+        @apply antialiased bg-[#FAFAFA] text-gray-900;
+    }
+
+    /* 
+     * HIDE SCROLLBAR
+     * Used for carousel and other horizontally scrolling elements.
+     * Hides the scrollbar while maintaining scroll functionality.
+     */
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* ============================================================================
+   UTILITY LAYER
+   ============================================================================
+   Custom utility classes that can be used like Tailwind utilities.
+*/
+@layer utilities {
+
+    /* 
+     * GLASS EFFECT
+     * Creates a frosted glass appearance.
+     * Usage: className="glass"
+     */
+    .glass {
+        @apply backdrop-blur-xl bg-white/70 border border-white/20;
+    }
+
+    /* 
+     * SCROLLBAR HIDE
+     * Completely hides scrollbar while maintaining scroll functionality
+     * Usage: className="scrollbar-hide"
+     */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* Float Animation */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+.animation-delay-1000 {
+    animation-delay: 1000ms;
+}
+
+/* Marquee */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+
+/* Spin */
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+    animation-direction: reverse;
+}
