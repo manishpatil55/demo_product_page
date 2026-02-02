@@ -159,8 +159,16 @@ export default function Carousel() {
                                             <div className="relative h-full flex flex-col z-10">
                                                 {/* Header: Icon + Badge */}
                                                 <div className="flex justify-between items-start mb-3">
-                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/80 backdrop-blur-md shadow-sm border border-white/50">
-                                                        <span className="text-2xl">{item.icon}</span>
+                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/80 backdrop-blur-md shadow-sm border border-white/50 overflow-hidden p-1">
+                                                        {typeof item.icon === 'string' && item.icon.includes('/') ? (
+                                                            <img
+                                                                src={item.icon}
+                                                                alt={`${item.title} icon`}
+                                                                className="w-full h-full object-cover rounded-lg"
+                                                            />
+                                                        ) : (
+                                                            <span className="text-2xl">{item.icon}</span>
+                                                        )}
                                                     </div>
                                                     <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/70 backdrop-blur-md border border-white/50 ${item.accent}`}>
                                                         {item.subtitle}
