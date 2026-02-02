@@ -26,8 +26,6 @@ import Hero from './components/Hero';
 import Carousel from './components/Carousel';
 import StickyScroll from './components/StickyScroll';
 import TechTiles from './components/TechTiles';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
 import Marquee from './components/Marquee';
 import ContactForm from './components/ContactForm';
 
@@ -83,13 +81,7 @@ function App() {
         {/* Tech Stack */}
         <TechTiles />
 
-        {/* Testimonials */}
-        <Testimonials />
 
-
-
-        {/* FAQ */}
-        <FAQ />
 
         {/* Marquee */}
         <Marquee />
