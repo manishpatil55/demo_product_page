@@ -206,6 +206,52 @@ const siteConfig = {
     },
 
     // =========================================================================
+    // PROJECT SHOWCASE
+    // =========================================================================
+    showcase: {
+        badge: 'Social Presence',
+        headline: 'Turning Visions Into Digital Reality',
+        projects: [
+            {
+                title: 'Lal Sweets Ecom Website',
+                description: 'Modern sweets store with responsive design for smooth shopping.',
+                image: '/web-platform.png',
+                link: '#'
+            },
+            {
+                title: 'Kirtilals : Luxury Website',
+                description: 'Premium diamond-jewellery store with elegant UX for luxury buyers.',
+                image: '/mobile-app.png',
+                link: '#'
+            },
+            {
+                title: 'Tradescribe: Trading Platform',
+                description: 'Built a sleek journaling platform for tracking trades with AI-backed analytics.',
+                image: '/analytics.png',
+                link: '#'
+            },
+            {
+                title: 'Murzban: Clothing Luxury',
+                description: 'Modern online store for curated men\'s & women\'s designer fashion.',
+                image: '/vendor-portal.png',
+                link: '#'
+            },
+            {
+                title: 'Greenfeels: Sustainable Ecom',
+                description: 'Curated eco-friendly essentials in a clean responsive design for conscious shoppers.',
+                image: '/web-platform.png',
+                link: '#'
+            },
+            {
+                title: 'Momentz',
+                description: 'Curated luxury gifts and premium home décor in a sleek online storefront.',
+                image: '/admin-panel.png',
+                link: '#'
+            }
+        ]
+    },
+
+    // =========================================================================
     // STATS / ACHIEVEMENTS
     // =========================================================================
     stats: [

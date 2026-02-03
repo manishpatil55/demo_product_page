@@ -24,7 +24,9 @@ import FloatingSocials from './components/FloatingSocials';
 // Section Components
 import Hero from './components/Hero';
 import Carousel from './components/Carousel';
-import StickyScroll from './components/StickyScroll';
+
+// import StickyScroll from './components/StickyScroll';
+import ProjectShowcase from './components/ProjectShowcase';
 import TechTiles from './components/TechTiles';
 import Marquee from './components/Marquee';
 import ContactForm from './components/ContactForm';
@@ -76,7 +78,10 @@ function App() {
 
 
         {/* Services / Why Choose Us */}
-        <StickyScroll />
+        {/* <StickyScroll /> */}
+
+        {/* Featured Projects Showcase */}
+        <ProjectShowcase />
 
         {/* Tech Stack */}
         <TechTiles />
