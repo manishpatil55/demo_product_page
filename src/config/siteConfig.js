@@ -21,6 +21,76 @@
 
 const siteConfig = {
     // =========================================================================
+    // NAVIGATION LINKS (External & Internal)
+    // =========================================================================
+    links: {
+        home: '#', // Visual only
+        about: '#', // Visual only
+        work: '#', // Visual only
+        services: '#', // Visual only
+        contact: '#', // Visual only
+    },
+
+    // =========================================================================
+    // HERO SECTION
+    // =========================================================================
+    hero: {
+        headline: {
+            prefix: "Build your",
+            highlight: "Food Empire",
+            suffix: ""
+        },
+        subtitle: "The complete multi-vendor food delivery solution.",
+        description: "Pixel-perfect apps, powerful admin panel, and robust backend.",
+        pricing: {
+            label: "One-time License:",
+            value: "₹50,000",
+            subtext: "Includes 1 Year Free Support & Updates"
+        },
+        cta: {
+            text: "Get Started",
+            link: "#contact"
+        },
+        mockup: {
+            notification1: {
+                title: "Order Received!",
+                subtitle: "+$45.00 Revenue",
+                icon: "🎉",
+                color: "green"
+            },
+            notification2: {
+                title: "Driver Nearby",
+                subtitle: "Arriving in 2 mins",
+                icon: "🛵",
+                color: "orange"
+            }
+        }
+    },
+
+    // =========================================================================
+    // TECH TILES SECTION
+    // =========================================================================
+    techTiles: {
+        title: "Technologies We Work On",
+        subtitle: "Our Tech Stack",
+        description: "And many more tools to build exceptional products",
+        technologies: [
+            { name: 'React', slug: 'react', desc: 'UI Library', color: 'from-blue-500/20' },
+            { name: 'Next.js', slug: 'nextdotjs', desc: 'React Framework', color: 'from-black/20' },
+            { name: 'Node.js', slug: 'nodedotjs', desc: 'Runtime', color: 'from-green-500/20' },
+            { name: 'Python', slug: 'python', desc: 'Backend', color: 'from-yellow-500/20' },
+            { name: 'TypeScript', slug: 'typescript', desc: 'Typed JS', color: 'from-blue-600/20' },
+            { name: 'Flutter', slug: 'flutter', desc: 'Mobile', color: 'from-sky-400/20' },
+            { name: 'Figma', slug: 'figma', desc: 'Design Tool', color: 'from-purple-500/20' },
+            { name: 'MongoDB', slug: 'mongodb', desc: 'Database', color: 'from-green-600/20' },
+            { name: 'PostgreSQL', slug: 'postgresql', desc: 'Database', color: 'from-blue-700/20' },
+            { name: 'AWS', slug: 'amazonwebservices', desc: 'Cloud', color: 'from-orange-400/20' },
+            { name: 'Docker', slug: 'docker', desc: 'Container', color: 'from-cyan-500/20' },
+            { name: 'Tailwind CSS', slug: 'tailwindcss', desc: 'CSS Framework', color: 'from-teal-400/20' },
+        ]
+    },
+
+    // =========================================================================
     // BRAND SETTINGS
     // =========================================================================
     brand: {
@@ -34,55 +104,26 @@ const siteConfig = {
     },
 
     // =========================================================================
-    // HERO SECTION
+    // PRODUCT DETAILS (Simple Exploration)
     // =========================================================================
-    hero: {
-        // Badge above headline (set to null to hide)
-        badge: null,
-
-        // Main headline - supports HTML for styling
-        headline: 'Build your <span class="text-gradient">Digital Empire</span>',
-
-        // Subtitle text
-        subtitle: 'The complete solution for your business. <strong>Pixel-perfect design</strong>, powerful functionality, and robust performance.',
-
-        // Pricing display (set to null to hide)
-        pricing: {
-            label: 'Starting at',
-            amount: '₹50,000',
-            period: 'one-time',
-            note: 'Includes 1 Year Free Support & Updates'
-        },
-
-        // CTA Button
-        cta: {
-            text: 'Get Started',
-            link: '#contact',
-            icon: '→'
-        },
-
-        // Device mockup settings
-        mockup: {
-            type: 'phone', // 'phone', 'laptop', 'tablet', or null
-            image: '/apple-iphone-17-pro-max.png',
-            // Floating cards around the mockup
-            floatingCards: [
-                {
-                    icon: '🎉',
-                    title: 'Order Received!',
-                    subtitle: '+$45.00 Revenue',
-                    position: 'top-right',
-                    color: 'green'
-                },
-                {
-                    icon: '🛵',
-                    title: 'Driver Nearby',
-                    subtitle: 'Arriving in 2 mins',
-                    position: 'bottom-left',
-                    color: 'orange'
-                }
-            ]
-        }
+    productDetails: {
+        title: "Your Product Name",
+        subtitle: "The Ultimate scalable Solution",
+        description: "This is where you describe your product in detail. Highlight the main problem it solves and why your solution is the best on the market. Keep it engaging and focused on value. Explain your core technology, your unique selling proposition, and how you deliver results.",
+        longDescription: "Dive deeper into the architecture here. Whether it's microservices, AI integration, or a revolutionary UI/UX, this space allows you to expand on the technical prowess of your offering. This template is designed to handle text-heavy explanations without losing visual appeal.",
+        features: [
+            "Enterprise-Grade Architecture",
+            "Fully Scalable & Secure",
+            "Modern Tech Stack (React/Node)",
+            "Comprehensive Documentation",
+            "24/7 Priority Support"
+        ],
+        stats: [
+            { label: 'Uptime', value: '99.9%' },
+            { label: 'Users', value: '10K+' },
+            { label: 'Rating', value: '4.9/5' }
+        ],
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" // Generic tech image
     },
 
     // =========================================================================
@@ -247,6 +288,58 @@ const siteConfig = {
                 description: 'Curated luxury gifts and premium home décor in a sleek online storefront.',
                 image: '/admin-panel.png',
                 link: '#'
+            },
+            {
+                title: 'PixelArt Studio',
+                description: 'Creative portfolio platform for digital artists and designers.',
+                image: '/web-platform.png',
+                link: '#'
+            },
+            {
+                title: 'HealthHub',
+                description: 'Complete patient management system with telemedicine capabilities.',
+                image: '/mobile-app.png',
+                link: '#'
+            },
+            {
+                title: 'FinTrack Pro',
+                description: 'Personal finance dashboard for tracking investments and expenses.',
+                image: '/analytics.png',
+                link: '#'
+            }
+        ]
+    },
+
+    // =========================================================================
+    // NEW TESTIMONIALS
+    // =========================================================================
+    testimonials: {
+        badge: 'Client Love',
+        headline: 'Trusted by Innovative Teams',
+        reviews: [
+            {
+                quote: "The team at hxp transformed our vision into a scalable reality. The attention to detail is unmatched.",
+                author: 'Vikram Mehta',
+                role: 'CTO, FinTech Solutions',
+                avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
+            },
+            {
+                quote: "Incredible design aesthetics backed by solid engineering. Our conversion rates doubled after the launch.",
+                author: 'Sarah Jenkins',
+                role: 'Founder, StyleLoft',
+                avatar: 'https://randomuser.me/api/portraits/women/44.jpg'
+            },
+            {
+                quote: "They didn't just build a website; they built a comprehensive digital experience for our customers.",
+                author: 'Arjun Reddy',
+                role: 'Director, UrbanSpace',
+                avatar: 'https://randomuser.me/api/portraits/men/67.jpg'
+            },
+            {
+                quote: "Seamless communication and delivery. The post-launch support has been exceptional.",
+                author: 'Meera Kapoor',
+                role: 'Marketing Head, GreenLife',
+                avatar: 'https://randomuser.me/api/portraits/women/28.jpg'
             }
         ]
     },
@@ -262,14 +355,32 @@ const siteConfig = {
     ],
 
     // =========================================================================
+    // MARQUEE (Infinite Scroll)
+    // =========================================================================
+    marquee: {
+        text: "Built with the Best",
+        secondaryText: "Launch Faster",
+        color: "red"
+    },
+
+    // =========================================================================
     // CONTACT INFORMATION
     // =========================================================================
     contact: {
+        label: "Contact",
+        headline: 'Let\'s build <br /><span class="text-[#FF3B30]">something great</span><br />together.',
+        description: "Share your project details and we'll craft a solution tailored just for you.",
         email: 'hello@hxptechnologies.com',
         phone: '+91 98765 43210',
         whatsapp: '919876543210', // Without + or spaces
         address: 'Mumbai, India',
-        formFields: ['name', 'phone', 'email', 'brand'], // Fields to show
+        formFields: [
+            { id: 'name', label: 'Full Name', type: 'text', required: true },
+            { id: 'phone', label: 'Phone Number', type: 'tel', required: true },
+            { id: 'email', label: 'Email Address', type: 'email', required: false },
+            { id: 'brand', label: 'Brand / Company', type: 'text', required: false },
+        ],
+        cta: "Send Message"
     },
 
     // =========================================================================

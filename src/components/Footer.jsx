@@ -16,6 +16,7 @@
  */
 
 import { motion } from 'framer-motion';
+import siteConfig from '../config/siteConfig';
 
 // =============================================================================
 // CONFIGURATION - Edit these for different products/deployments
@@ -62,10 +63,10 @@ const footerConfig = {
 
     // Navigation Links
     navLinks: [
-        { label: 'Our Work', href: '#work' },
-        { label: 'Services', href: '#services' },
-        { label: 'About Us', href: '#about' },
-        { label: 'Contact Us', href: '#contact' },
+        { label: 'Home', href: siteConfig.links.home },
+        { label: 'Projects', href: siteConfig.links.work },
+        { label: 'Services', href: siteConfig.links.services },
+        { label: 'About Us', href: siteConfig.links.about },
     ]
 };
 
@@ -92,9 +93,9 @@ const SocialIcons = {
 
 export default function Footer() {
     return (
-        <footer className="relative px-4 md:px-6">
+        <footer className="relative px-4 md:px-6 bg-[#FAFAFA]">
             {/* Footer Card with Curved Top Corners */}
-            <div className="bg-white/60 backdrop-blur-xl border border-white/40 border-b-0 rounded-t-[2rem] md:rounded-t-[2.5rem] shadow-[0_-8px_30px_rgba(0,0,0,0.04)]">
+            <div className="bg-white backdrop-blur-xl border border-white/40 border-b-0 rounded-t-[2rem] md:rounded-t-[2.5rem] shadow-[0_-8px_30px_rgba(0,0,0,0.04)]">
 
                 {/* Main Footer Content */}
                 <div className="max-w-7xl mx-auto px-6 md:px-10 py-8 md:py-10">
@@ -104,7 +105,7 @@ export default function Footer() {
 
                         {/* Logo */}
                         <motion.a
-                            href="/"
+                            href={siteConfig.links.home}
                             className="flex items-center gap-0 text-3xl md:text-4xl font-bold tracking-tight group"
                             whileHover={{ scale: 1.03 }}
                             transition={{ duration: 0.2 }}

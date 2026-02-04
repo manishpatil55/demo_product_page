@@ -24,9 +24,12 @@ import FloatingSocials from './components/FloatingSocials';
 // Section Components
 import Hero from './components/Hero';
 import Carousel from './components/Carousel';
+import ProductDetails from './components/ProductDetails';
+import Pricing from './components/Pricing';
 
 // import StickyScroll from './components/StickyScroll';
 import ProjectShowcase from './components/ProjectShowcase';
+import Testimonials from './components/Testimonials';
 import TechTiles from './components/TechTiles';
 import Marquee from './components/Marquee';
 import ContactForm from './components/ContactForm';
@@ -72,7 +75,10 @@ function App() {
         {/* Hero */}
         <Hero />
 
-        {/* Product Carousel */}
+        {/* Product Details - Bento Grid */}
+        <ProductDetails />
+
+        {/* Offerings Section */}
         <Carousel />
 
 
@@ -80,11 +86,17 @@ function App() {
         {/* Services / Why Choose Us */}
         {/* <StickyScroll /> */}
 
+        {/* Tech Stack */}
+        <TechTiles />
+
         {/* Featured Projects Showcase */}
         <ProjectShowcase />
 
-        {/* Tech Stack */}
-        <TechTiles />
+        {/* Pricing Section */}
+        <Pricing />
+
+        {/* Client Testimonials */}
+        <Testimonials />
 
 
 

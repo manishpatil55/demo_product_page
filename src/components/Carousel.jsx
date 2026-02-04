@@ -54,17 +54,17 @@ export default function Carousel() {
     const offsetRange = [-2, -1, 0, 1, 2];
 
     return (
-        <section className="py-24 px-5 bg-white overflow-hidden select-none">
+        <section className="py-24 px-5 bg-[#FAFAFA] overflow-hidden select-none">
             <div className="text-center mb-16">
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="inline-block px-4 py-1.5 rounded-full bg-orange-50 text-orange-600 text-sm font-bold tracking-wide mb-6 uppercase border border-orange-100"
+                    className="text-xs font-bold tracking-[0.3em] text-orange-500 uppercase mb-4"
                 >
                     Ecosystem
                 </motion.div>
-                <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-[1.1]">
                     Everything you need.
                 </h2>
                 <p className="text-lg text-gray-500 max-w-2xl mx-auto">

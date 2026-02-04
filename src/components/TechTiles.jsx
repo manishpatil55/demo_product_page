@@ -6,25 +6,15 @@
 
 import { motion, useMotionValue, useTransform, animate, useVelocity } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
-
-const technologies = [
-    { name: 'React', slug: 'react', desc: 'UI Library', color: 'from-blue-500/20' },
-    { name: 'Next.js', slug: 'nextdotjs', desc: 'React Framework', color: 'from-black/20' },
-    { name: 'Node.js', slug: 'nodedotjs', desc: 'Runtime', color: 'from-green-500/20' },
-    { name: 'Python', slug: 'python', desc: 'Backend', color: 'from-yellow-500/20' },
-    { name: 'TypeScript', slug: 'typescript', desc: 'Typed JS', color: 'from-blue-600/20' },
-    { name: 'Flutter', slug: 'flutter', desc: 'Mobile', color: 'from-sky-400/20' },
-    { name: 'Figma', slug: 'figma', desc: 'Design Tool', color: 'from-purple-500/20' },
-    { name: 'MongoDB', slug: 'mongodb', desc: 'Database', color: 'from-green-600/20' },
-    { name: 'PostgreSQL', slug: 'postgresql', desc: 'Database', color: 'from-blue-700/20' },
-    { name: 'AWS', slug: 'amazonwebservices', desc: 'Cloud', color: 'from-orange-400/20' },
-    { name: 'Docker', slug: 'docker', desc: 'Container', color: 'from-cyan-500/20' },
-    { name: 'Tailwind CSS', slug: 'tailwindcss', desc: 'CSS Framework', color: 'from-teal-400/20' },
-];
+import siteConfig from '../config/siteConfig';
 
 export default function TechTiles() {
+    const { techTiles } = siteConfig;
+    const { technologies } = techTiles;
+    const [isExpanded, setIsExpanded] = useState(false);
+
     return (
-        <section className="py-16 px-6 bg-white">
+        <section className="py-16 px-6 bg-[#FAFAFA]">
 
             <div className="max-w-7xl mx-auto">
 
@@ -36,27 +26,26 @@ export default function TechTiles() {
                     transition={{ duration: 0.6 }}
                     className="mb-16"
                 >
-                    <p className="text-xs font-bold tracking-[0.25em] text-gray-400 uppercase mb-3">
-                        Technologies We Work On
+                    <p className="text-xs font-bold tracking-[0.3em] text-gray-400 uppercase mb-4">
+                        {techTiles.title}
                     </p>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
-                        Our Tech Stack
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.1]">
+                        {techTiles.subtitle}
                     </h2>
                 </motion.div>
 
                 {/* Mobile: Bidirectional Infinite Scroll */}
                 <div className="md:hidden">
-                    <BidirectionalInfiniteScroll />
+                    <BidirectionalInfiniteScroll technologies={technologies} />
                 </div>
 
                 {/* Desktop: Grid Layout */}
                 <div className="hidden md:grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    {technologies.map((tech, index) => (
+                    {technologies.slice(0, isExpanded ? technologies.length : 10).map((tech, index) => (
                         <motion.div
                             key={tech.name}
                             initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
+                            animate={{ opacity: 1, scale: 1 }}
                             transition={{
                                 delay: index * 0.03,
                                 duration: 0.4
@@ -92,6 +81,26 @@ export default function TechTiles() {
                     ))}
                 </div>
 
+                {/* Toggle Button (Icon Only) */}
+                {technologies.length > 10 && (
+                    <div className="hidden md:flex justify-center mt-12">
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center bg-white shadow-sm hover:border-[#FF3B30] hover:shadow-md transition-all duration-300 group"
+                            aria-label={isExpanded ? "Show Less" : "Show More"}
+                        >
+                            <svg
+                                className={`w-6 h-6 text-gray-400 group-hover:text-[#FF3B30] transition-colors duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
+
                 {/* Footer */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -101,7 +110,7 @@ export default function TechTiles() {
                     className="mt-12 text-center hidden md:block"
                 >
                     <p className="text-gray-400 text-sm">
-                        And many more tools to build exceptional products
+                        {techTiles.description}
                     </p>
                 </motion.div>
 
@@ -111,7 +120,7 @@ export default function TechTiles() {
 }
 
 // Bidirectional Infinite Scroll Component
-function BidirectionalInfiniteScroll() {
+function BidirectionalInfiniteScroll({ technologies }) {
     const x = useMotionValue(0);
     const velocity = useVelocity(x);
     const [isDragging, setIsDragging] = useState(false);
@@ -119,7 +128,7 @@ function BidirectionalInfiniteScroll() {
 
     // 5x repetition for true bidirectional infinite scroll
     const repeatedData = [...technologies, ...technologies, ...technologies, ...technologies, ...technologies];
-    const cardWidth = 140 + 12; // card + gap
+    const cardWidth = 180 + 16; // card + gap (Increased size)
     const singleSetWidth = technologies.length * cardWidth;
     const totalWidth = repeatedData.length * cardWidth;
 
@@ -203,7 +212,7 @@ function BidirectionalInfiniteScroll() {
                             x.set(currentX - singleSetWidth * 2);
                         }
                     }}
-                    className="flex gap-3"
+                    className="flex gap-4"
                     whileTap={{ cursor: 'grabbing' }}
                 >
                     {repeatedData.map((tech, index) => {
@@ -213,7 +222,7 @@ function BidirectionalInfiniteScroll() {
                             (latest) => {
                                 const cardPosition = -(index * cardWidth);
                                 const viewportCenter = window.innerWidth / 2;
-                                const cardCenter = latest + cardPosition + 70; // 70 = half card width
+                                const cardCenter = latest + cardPosition + 90; // 90 = half card width (180/2)
                                 const distanceFromCenter = Math.abs(viewportCenter - cardCenter);
                                 return distanceFromCenter;
                             }
@@ -227,31 +236,31 @@ function BidirectionalInfiniteScroll() {
                                 key={`${tech.slug}-${index}`}
                                 className="flex-shrink-0 relative"
                                 style={{
-                                    width: '140px',
+                                    width: '180px', // Increased width
                                     scale,
                                     opacity
                                 }}
                             >
-                                <div className="bg-white border border-gray-100 rounded-xl p-3 h-full shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 relative overflow-hidden">
+                                <div className="bg-white border border-gray-100 rounded-xl p-5 h-full shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 relative overflow-hidden">
                                     {/* Subtle color accent */}
                                     <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
-                                    <div className="flex flex-col items-center text-center gap-2 relative z-10">
-                                        <div className="w-10 h-10 flex items-center justify-center">
+                                    <div className="flex flex-col items-center text-center gap-3 relative z-10">
+                                        <div className="w-12 h-12 flex items-center justify-center">
                                             <motion.img
                                                 src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tech.slug}.svg`}
                                                 alt={tech.name}
                                                 loading="lazy"
-                                                className="w-8 h-8 pointer-events-none"
+                                                className="w-10 h-10 pointer-events-none" // Increased icon size
                                                 draggable="false"
                                                 style={{ filter: `blur(${velocityBlur}px)` }}
                                             />
                                         </div>
                                         <div className="w-full">
-                                            <h3 className="text-xs font-bold text-gray-900 mb-0.5 leading-tight">
+                                            <h3 className="text-sm font-bold text-gray-900 mb-1 leading-tight">
                                                 {tech.name}
                                             </h3>
-                                            <p className="text-[10px] text-gray-400">
+                                            <p className="text-xs text-gray-400">
                                                 {tech.desc}
                                             </p>
                                         </div>

@@ -12,29 +12,21 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import siteConfig from '../config/siteConfig';
 
 export default function ContactForm() {
+    const { contact } = siteConfig;
     const [focused, setFocused] = useState(null);
-    const [formData, setFormData] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        brand: ''
-    });
+    const [formData, setFormData] = useState(
+        contact.formFields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {})
+    );
 
     const handleChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    const fields = [
-        { id: 'name', label: 'Full Name', type: 'text', required: true },
-        { id: 'phone', label: 'Phone Number', type: 'tel', required: true },
-        { id: 'email', label: 'Email Address', type: 'email', required: false },
-        { id: 'brand', label: 'Brand / Company', type: 'text', required: false },
-    ];
-
     return (
-        <section id="contact" className="relative py-24 md:py-32 overflow-hidden bg-white">
+        <section className="relative py-24 md:py-32 overflow-hidden bg-[#FAFAFA]">
 
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-[0.03]">
@@ -44,10 +36,10 @@ export default function ContactForm() {
                 }} />
             </div>
 
-            <div className="relative max-w-6xl mx-auto px-6">
+            <div className="relative max-w-7xl mx-auto px-6">
 
                 {/* Main Grid */}
-                <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
+                <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
 
                     {/* Left: Text Content */}
                     <motion.div
@@ -56,35 +48,32 @@ export default function ContactForm() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.7 }}
                     >
-                        <p className="text-xs font-bold tracking-[0.3em] text-gray-400 uppercase mb-4">
-                            Contact
+                        <p className="text-sm font-bold tracking-[0.3em] text-gray-400 uppercase mb-6">
+                            {contact.label}
                         </p>
 
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.1] mb-6">
-                            Let's build
-                            <br />
-                            <span className="text-[#FF3B30]">something great</span>
-                            <br />
-                            together.
-                        </h2>
+                        <h2
+                            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight leading-[1.05] mb-8"
+                            dangerouslySetInnerHTML={{ __html: contact.headline }}
+                        />
 
-                        <p className="text-lg text-gray-500 leading-relaxed mb-8 max-w-md">
-                            Share your project details and we'll craft a solution tailored just for you.
+                        <p className="text-xl md:text-2xl text-gray-500 leading-relaxed mb-10 max-w-lg">
+                            {contact.description}
                         </p>
 
                         {/* Contact Info Pills */}
                         <div className="flex flex-wrap gap-3">
-                            <a href="mailto:hello@hxptechnologies.com" className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-all">
+                            <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-all">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
-                                hello@hxptechnologies.com
+                                {contact.email}
                             </a>
-                            <a href="tel:+919876543210" className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-all">
+                            <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-all">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
-                                +91 98765 43210
+                                {contact.phone}
                             </a>
                         </div>
                     </motion.div>
@@ -97,7 +86,7 @@ export default function ContactForm() {
                         transition={{ duration: 0.7, delay: 0.2 }}
                     >
                         <form className="space-y-8">
-                            {fields.map((field, index) => (
+                            {contact.formFields.map((field, index) => (
                                 <motion.div
                                     key={field.id}
                                     className="relative"
@@ -150,7 +139,7 @@ export default function ContactForm() {
 
                                 {/* Text */}
                                 <span className="relative z-10 flex items-center justify-center gap-3">
-                                    Send Message
+                                    {contact.cta}
                                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                     </svg>

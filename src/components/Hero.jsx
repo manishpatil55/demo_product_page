@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import siteConfig from '../config/siteConfig';
 
 export default function Hero() {
     const containerRef = useRef(null);
+    const { hero } = siteConfig;
     const { scrollY } = useScroll();
 
     // Parallax Effects (Vertical Only)
@@ -33,7 +35,7 @@ export default function Hero() {
     return (
         <section
             ref={containerRef}
-            className="relative min-h-screen flex flex-col items-center justify-start pt-28 pb-0 overflow-hidden bg-[#FAFAFA]"
+            className="relative min-h-screen flex flex-col items-center justify-start pt-28 pb-0 overflow-hidden bg-gradient-to-b from-[#FAFAFA] to-white"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
         >
@@ -62,7 +64,7 @@ export default function Hero() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="text-5xl md:text-7xl font-bold text-gray-900 tracking-tight leading-tight mb-6 mt-8"
                 >
-                    Build your <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900">Food Empire</span>
+                    {hero.headline.prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900">{hero.headline.highlight}</span> {hero.headline.suffix}
                 </motion.h1>
 
                 {/* Subtitle */}
@@ -72,9 +74,9 @@ export default function Hero() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl mx-auto leading-relaxed font-light"
                 >
-                    The complete multi-vendor food delivery solution.
+                    {hero.subtitle}
                     <br />
-                    <strong className="font-semibold text-gray-900">Pixel-perfect apps</strong>, powerful admin panel, and robust backend.
+                    <strong className="font-semibold text-gray-900">{hero.description}</strong>
                 </motion.p>
 
                 {/* CTA & Pricing */}
@@ -85,13 +87,16 @@ export default function Hero() {
                     className="flex flex-col items-center gap-6 relative z-20 mb-12"
                 >
                     <div className="flex items-center gap-3 bg-white/50 backdrop-blur-sm px-6 py-2 rounded-2xl border border-gray-100/50">
-                        <span className="text-lg text-gray-900">One-time License:</span>
-                        <span className="text-4xl font-bold tracking-tight text-gray-900">₹50,000</span>
+                        <span className="text-lg text-gray-900">{hero.pricing.label}</span>
+                        <span className="text-4xl font-bold tracking-tight text-gray-900">{hero.pricing.value}</span>
                     </div>
 
-                    <button className="group relative px-8 py-4 bg-gray-900 text-white text-lg font-medium rounded-2xl overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-gray-900/20 active:scale-95">
+                    <button
+                        onClick={() => document.getElementById(hero.cta.link.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' })}
+                        className="group relative px-8 py-4 bg-gray-900 text-white text-lg font-medium rounded-2xl overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-gray-900/20 active:scale-95"
+                    >
                         <span className="relative z-10 flex items-center gap-2">
-                            Get Started
+                            {hero.cta.text}
                             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
@@ -99,7 +104,7 @@ export default function Hero() {
                         <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-black opacity-0 group-hover:opacity-100 transition-opacity" />
                     </button>
 
-                    <p className="text-sm text-gray-400">Includes 1 Year Free Support & Updates</p>
+                    <p className="text-sm text-gray-400">{hero.pricing.subtext}</p>
                 </motion.div>
             </div>
 
@@ -108,36 +113,31 @@ export default function Hero() {
                 style={{ y: y1 }}
                 className="relative z-30 w-[340px] md:w-[380px] aspect-[9/19.5]"
             >
-                {/* FLOATING 3D ELEMENTS (Positions Adjusted UP and OVERLAPPING) */}
-                {/* Z-Index higher than phone content (z-10/z-50) but phone is z-30 container */}
-                {/* We put them ABSOLUTE relative to THIS motion.div container so they move WITH the phone parallax (y1) naturally */}
-
+                {/* FLOATING 3D ELEMENTS (Notifications) */}
                 <motion.div
                     style={{ y: y2, x: 20 }}
                     className="absolute top-[80px] -right-[60px] md:-right-[80px] bg-white/90 backdrop-blur-xl border border-white/60 p-4 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] animate-float hover:scale-105 transition-transform cursor-pointer z-[100]"
                 >
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-green-50 rounded-2xl flex items-center justify-center text-xl shadow-sm border border-green-100">🎉</div>
+                        <div className={`w-10 h-10 bg-${hero.mockup.notification1.color}-50 rounded-2xl flex items-center justify-center text-xl shadow-sm border border-${hero.mockup.notification1.color}-100`}>{hero.mockup.notification1.icon}</div>
                         <div>
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-0.5">Notification</p>
-                            <p className="text-sm font-bold text-gray-900 leading-tight">Order Received!</p>
-                            <p className="text-[10px] text-green-600 font-semibold">+$45.00 Revenue</p>
+                            <p className="text-sm font-bold text-gray-900 leading-tight">{hero.mockup.notification1.title}</p>
+                            <p className={`text-[10px] text-${hero.mockup.notification1.color}-600 font-semibold`}>{hero.mockup.notification1.subtitle}</p>
                         </div>
                     </div>
                 </motion.div>
 
                 <motion.div
                     style={{ y: y1, x: -20 }}
-                    // Adjusted: Higher Bottom value (35%) to prevent cutting and ensure 'on phone' feel
-                    // Adjusted: Left value closer to intersect border (-left-[60px])
                     className="absolute top-[55%] -left-[60px] md:-left-[80px] bg-white/90 backdrop-blur-xl border border-white/60 p-4 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] animate-float animation-delay-1500 hover:scale-105 transition-transform cursor-pointer z-[100]"
                 >
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-orange-50 rounded-2xl flex items-center justify-center text-xl shadow-sm border border-orange-100">🛵</div>
+                        <div className={`w-10 h-10 bg-${hero.mockup.notification2.color}-50 rounded-2xl flex items-center justify-center text-xl shadow-sm border border-${hero.mockup.notification2.color}-100`}>{hero.mockup.notification2.icon}</div>
                         <div>
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-0.5">Live Status</p>
-                            <p className="text-sm font-bold text-gray-900 leading-tight">Driver Nearby</p>
-                            <p className="text-[10px] text-orange-600 font-semibold">Arriving in 2 mins</p>
+                            <p className="text-sm font-bold text-gray-900 leading-tight">{hero.mockup.notification2.title}</p>
+                            <p className={`text-[10px] text-${hero.mockup.notification2.color}-600 font-semibold`}>{hero.mockup.notification2.subtitle}</p>
                         </div>
                     </div>
                 </motion.div>
@@ -262,7 +262,7 @@ export default function Hero() {
                                             </div>
                                             <div className="flex-1 py-1 flex flex-col justify-center">
                                                 <h4 className="font-bold text-gray-900 text-sm">Premium Dish {item}</h4>
-                                                <p className="text-[10px] text-gray-500 mt-1 mb-2 font-medium">Italian • $$ • 4.5 ⭐</p>
+                                                <p className="text-xs text-gray-500 mt-1 mb-2 font-medium">Italian • $$ • 4.5 ⭐</p>
                                                 <div className="flex items-center justify-between">
                                                     <span className="font-bold text-gray-900 text-sm">$12.99</span>
                                                     <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-sm opacity-0 group-hover:opacity-100 transition-all hover:bg-orange-500 shadow-lg translate-x-4 group-hover:translate-x-0">+</div>
@@ -298,11 +298,11 @@ export default function Hero() {
                             <span className="text-gray-400 hover:text-gray-800 transition-colors cursor-pointer text-xl">👤</span>
                         </div>
                     </div>
-                </div>
+                </div >
 
                 {/* NO REFLECTION (REMOVED AS REQUESTED) */}
 
-            </motion.div>
-        </section>
+            </motion.div >
+        </section >
     );
 }
