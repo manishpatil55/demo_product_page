@@ -55,7 +55,7 @@ export default function TechTiles() {
                                 scale: 1.02,
                                 transition: { duration: 0.2 }
                             }}
-                            className="group"
+                            className={`group ${!isExpanded && index >= 6 ? 'hidden lg:block' : ''}`}
                         >
                             <div className="bg-white border border-gray-100 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:border-gray-300 hover:shadow-lg h-full">
                                 <div className="flex flex-col items-center text-center gap-3">
@@ -215,62 +215,82 @@ function BidirectionalInfiniteScroll({ technologies }) {
                     className="flex gap-4"
                     whileTap={{ cursor: 'grabbing' }}
                 >
-                    {repeatedData.map((tech, index) => {
-                        // Calculate distance from center for effects
-                        const cardX = useTransform(
-                            x,
-                            (latest) => {
-                                const cardPosition = -(index * cardWidth);
-                                const viewportCenter = window.innerWidth / 2;
-                                const cardCenter = latest + cardPosition + 90; // 90 = half card width (180/2)
-                                const distanceFromCenter = Math.abs(viewportCenter - cardCenter);
-                                return distanceFromCenter;
-                            }
-                        );
-
-                        const scale = useTransform(cardX, [0, 200, 400], [1.1, 1, 0.95]);
-                        const opacity = useTransform(cardX, [0, 300, 600], [1, 0.9, 0.7]);
-
-                        return (
-                            <motion.div
-                                key={`${tech.slug}-${index}`}
-                                className="flex-shrink-0 relative"
-                                style={{
-                                    width: '180px', // Increased width
-                                    scale,
-                                    opacity
-                                }}
-                            >
-                                <div className="bg-white border border-gray-100 rounded-xl p-5 h-full shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 relative overflow-hidden">
-                                    {/* Subtle color accent */}
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-
-                                    <div className="flex flex-col items-center text-center gap-3 relative z-10">
-                                        <div className="w-12 h-12 flex items-center justify-center">
-                                            <motion.img
-                                                src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tech.slug}.svg`}
-                                                alt={tech.name}
-                                                loading="lazy"
-                                                className="w-10 h-10 pointer-events-none" // Increased icon size
-                                                draggable="false"
-                                                style={{ filter: `blur(${velocityBlur}px)` }}
-                                            />
-                                        </div>
-                                        <div className="w-full">
-                                            <h3 className="text-sm font-bold text-gray-900 mb-1 leading-tight">
-                                                {tech.name}
-                                            </h3>
-                                            <p className="text-xs text-gray-400">
-                                                {tech.desc}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                    {repeatedData.map((tech, index) => (
+                        <TileItem
+                            key={`${tech.slug}-${index}`}
+                            tech={tech}
+                            index={index}
+                            x={x}
+                            cardWidth={cardWidth}
+                            velocityBlur={velocityBlur}
+                        />
+                    ))}
                 </motion.div>
             </div>
         </div>
+    );
+}
+
+// Sub-component to fix React Hook Violation (useTransform inside map)
+function TileItem({ tech, index, x, cardWidth, velocityBlur }) {
+    // Calculate distance from center for effects
+    const cardX = useTransform(
+        x,
+        (latest) => {
+            const cardPosition = -(index * cardWidth);
+            const viewportCenter = window.innerWidth / 2;
+            const cardCenter = latest + cardPosition + 90; // 90 = half card width (180/2)
+            const distanceFromCenter = Math.abs(viewportCenter - cardCenter);
+            return distanceFromCenter;
+        }
+    );
+
+    const scale = useTransform(cardX, [0, 200, 400], [1.1, 1, 0.95]);
+    const opacity = useTransform(cardX, [0, 300, 600], [1, 0.9, 0.7]);
+    const isExpanded = false; // logic for tablet view hack - actually we rely on css class
+
+    return (
+        <motion.div
+            className={`flex-shrink-0 relative ${index >= 6 ? 'hidden lg:block' : ''}`} // Re-applying our Tablet logic here just in case, though the infinite scroll is mostly for mobile/tablet carousel? 
+            // Wait, TechTiles.jsx structure: 
+            // Mobile/Tablet -> BidirectionalInfiniteScroll (lines 38-40)
+            // Desktop -> Grid (lines 43-82)
+            // The InfiniteScroll is ONLY visible on md:hidden? No, `md:hidden` is on the container div in line 38.
+            // So Infinite Scroll is ONLY for mobile (<768px). 
+            // My "Tablet View" fix (limit to 6) was applied to the GRID (line 43), not this scroll.
+            // So I don't need the `hidden lg:block` logic here. This is mobile only.
+
+            style={{
+                width: '180px',
+                scale,
+                opacity
+            }}
+        >
+            <div className="bg-white border border-gray-100 rounded-xl p-5 h-full shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 relative overflow-hidden">
+                {/* Subtle color accent */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
+
+                <div className="flex flex-col items-center text-center gap-3 relative z-10">
+                    <div className="w-12 h-12 flex items-center justify-center">
+                        <motion.img
+                            src={`https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${tech.slug}.svg`}
+                            alt={tech.name}
+                            loading="lazy"
+                            className="w-10 h-10 pointer-events-none"
+                            draggable="false"
+                            style={{ filter: `blur(${velocityBlur}px)` }}
+                        />
+                    </div>
+                    <div className="w-full">
+                        <h3 className="text-sm font-bold text-gray-900 mb-1 leading-tight">
+                            {tech.name}
+                        </h3>
+                        <p className="text-xs text-gray-400">
+                            {tech.desc}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
     );
 }

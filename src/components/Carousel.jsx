@@ -18,21 +18,34 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import siteConfig from '../config/siteConfig';
 
 // Get offerings from config with fallback defaults
-const offerings = siteConfig.offerings.map((item, index) => ({
+const defaultOfferings = siteConfig.offerings.map((item, index) => ({
     ...item,
     borderColor: item.borderColor || `border-gray-200`,
     ringColor: item.ringColor || `ring-gray-100`,
     bg: item.bg || 'bg-gray-50',
 }));
 
-export default function Carousel() {
+export default function Carousel({
+    items = defaultOfferings,
+    label = "Ecosystem",
+    themeColor = null,
+    title = "Everything you need.",
+    description = "A complete suite of applications to run your business on autopilot.",
+
+    align = "center",
+    variant = "feature" // 'feature' | 'screenshot'
+}) {
+    // Use passed items or default
+    const carouselItems = items || defaultOfferings;
+
     const [index, setIndex] = useState(20000);
     const [isPaused, setIsPaused] = useState(false);
     const autoPlay = true;
     const interval = 4000;
 
     const getEffectiveIndex = (i) => {
-        const len = offerings.length;
+        const len = carouselItems.length;
+        if (len === 0) return 0;
         return ((i % len) + len) % len;
     };
 
@@ -53,22 +66,25 @@ export default function Carousel() {
 
     const offsetRange = [-2, -1, 0, 1, 2];
 
+    if (!carouselItems || carouselItems.length === 0) return null;
+
     return (
-        <section className="py-24 px-5 bg-[#FAFAFA] overflow-hidden select-none">
-            <div className="text-center mb-16">
+        <section className="py-24 px-5 bg-white overflow-hidden select-none">
+            <div className={`mb-16 max-w-7xl mx-auto ${align === 'center' ? 'text-center' : 'text-left'}`}>
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-xs font-bold tracking-[0.3em] text-orange-500 uppercase mb-4"
+                    className={`text-xs font-bold tracking-[0.3em] uppercase mb-4 ${!themeColor ? 'text-orange-500' : ''}`}
+                    style={themeColor ? { color: themeColor } : {}}
                 >
-                    Ecosystem
+                    {label}
                 </motion.div>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-[1.1]">
-                    Everything you need.
+                    {title}
                 </h2>
-                <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-                    A complete suite of applications to run your business on autopilot.
+                <p className={`text-lg text-gray-500 max-w-2xl ${align === 'center' ? 'mx-auto' : ''}`}>
+                    {description}
                 </p>
             </div>
 
@@ -103,7 +119,7 @@ export default function Carousel() {
                             {offsetRange.map((offset) => {
                                 const itemIndex = index + offset;
                                 const effectiveIndex = getEffectiveIndex(itemIndex);
-                                const item = offerings[effectiveIndex];
+                                const item = carouselItems[effectiveIndex];
                                 const isCenter = offset === 0;
 
                                 const xOffset = offset * 360;
@@ -150,59 +166,72 @@ export default function Carousel() {
                                             transformStyle: 'preserve-3d'
                                         }}
                                     >
-                                        {/* Card */}
-                                        <div className={`w-full h-full rounded-[32px] p-5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] bg-white border overflow-hidden relative transition-all duration-300 group ${isCenter ? 'border-gray-200 ring-2 ring-gray-100' : 'border-gray-100'}`}>
-
-                                            {/* Gradient Background */}
-                                            <div className={`absolute inset-0 opacity-30 bg-gradient-to-br ${item.color} pointer-events-none`} />
-
-                                            <div className="relative h-full flex flex-col z-10">
-                                                {/* Header: Icon + Badge */}
-                                                <div className="flex justify-between items-start mb-3">
-                                                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/80 backdrop-blur-md shadow-sm border border-white/50 overflow-hidden p-1">
-                                                        {typeof item.icon === 'string' && item.icon.includes('/') ? (
-                                                            <img
-                                                                src={item.icon}
-                                                                alt={`${item.title} icon`}
-                                                                className="w-full h-full object-cover rounded-lg"
-                                                            />
-                                                        ) : (
-                                                            <span className="text-2xl">{item.icon}</span>
-                                                        )}
-                                                    </div>
-                                                    <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/70 backdrop-blur-md border border-white/50 ${item.accent}`}>
-                                                        {item.subtitle}
-                                                    </div>
-                                                </div>
-
-                                                {/* Title */}
-                                                <h3 className="text-xl font-bold text-gray-900 mb-1 tracking-tight">
-                                                    {item.title}
-                                                </h3>
-
-                                                {/* Description */}
-                                                <p className="text-gray-500 text-xs font-medium leading-relaxed mb-3 line-clamp-2">
-                                                    {item.description}
-                                                </p>
-
-                                                {/* PRODUCT SCREENSHOT */}
+                                        {variant === 'screenshot' ? (
+                                            // SCREENSHOT VARIANT: Simple, clean image focus
+                                            <div className={`w-full h-full rounded-[32px] overflow-hidden relative shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] bg-gray-900 border-4 border-gray-900 group ${isCenter ? 'ring-2 ring-gray-100' : ''}`}>
                                                 {item.image && (
-                                                    <div className="flex-1 relative rounded-xl overflow-hidden bg-gray-100 border border-gray-200/50 shadow-sm">
-                                                        <img
-                                                            src={item.image}
-                                                            alt={`${item.title} screenshot`}
-                                                            className={`w-full h-full object-cover object-top transition-transform duration-700 ${isCenter ? 'scale-100 group-hover:scale-105' : 'scale-95'}`}
-                                                        />
-                                                        {/* Hover Overlay */}
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                                                            <span className="text-white text-sm font-semibold px-4 py-2 bg-black/50 rounded-full backdrop-blur-sm">
-                                                                View Details →
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.title || "Screenshot"}
+                                                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                                                    />
                                                 )}
                                             </div>
-                                        </div>
+                                        ) : (
+                                            // FEATURE VARIANT: Standard card with header and text
+                                            <div className={`w-full h-full rounded-[32px] p-5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] bg-white border overflow-hidden relative transition-all duration-300 group ${isCenter ? 'border-gray-200 ring-2 ring-gray-100' : 'border-gray-100'}`}>
+
+                                                {/* Gradient Background */}
+                                                <div className={`absolute inset-0 opacity-30 bg-gradient-to-br ${item.color} pointer-events-none`} />
+
+                                                <div className="relative h-full flex flex-col z-10">
+                                                    {/* Header: Icon + Badge */}
+                                                    <div className="flex justify-between items-start mb-3">
+                                                        <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/80 backdrop-blur-md shadow-sm border border-white/50 overflow-hidden p-1">
+                                                            {typeof item.icon === 'string' && item.icon.includes('/') ? (
+                                                                <img
+                                                                    src={item.icon}
+                                                                    alt={`${item.title} icon`}
+                                                                    className="w-full h-full object-cover rounded-lg"
+                                                                />
+                                                            ) : (
+                                                                <span className="text-2xl">{item.icon}</span>
+                                                            )}
+                                                        </div>
+                                                        <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/70 backdrop-blur-md border border-white/50 ${item.accent}`}>
+                                                            {item.subtitle}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Title */}
+                                                    <h3 className="text-xl font-bold text-gray-900 mb-1 tracking-tight">
+                                                        {item.title}
+                                                    </h3>
+
+                                                    {/* Description */}
+                                                    <p className="text-gray-500 text-xs font-medium leading-relaxed mb-3 line-clamp-2">
+                                                        {item.description}
+                                                    </p>
+
+                                                    {/* PRODUCT SCREENSHOT */}
+                                                    {item.image && (
+                                                        <div className="flex-1 relative rounded-xl overflow-hidden bg-gray-100 border border-gray-200/50 shadow-sm">
+                                                            <img
+                                                                src={item.image}
+                                                                alt={`${item.title} screenshot`}
+                                                                className={`w-full h-full object-cover object-top transition-transform duration-700 ${isCenter ? 'scale-100 group-hover:scale-105' : 'scale-95'}`}
+                                                            />
+                                                            {/* Hover Overlay */}
+                                                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                                                                <span className="text-white text-sm font-semibold px-4 py-2 bg-black/50 rounded-full backdrop-blur-sm">
+                                                                    View Details →
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
                                     </motion.div>
                                 );
                             })}
@@ -212,7 +241,7 @@ export default function Carousel() {
 
                 {/* Pagination Dashes */}
                 <div className="flex items-center gap-3 z-20">
-                    {offerings.map((_, i) => {
+                    {carouselItems.map((_, i) => {
                         const isActive = getEffectiveIndex(index) === i;
                         return (
                             <div

@@ -10,11 +10,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import siteConfig from '../config/siteConfig';
 
-export default function ProjectShowcase() {
+export default function ProjectShowcase({ initialShowAll = false }) {
     const { showcase } = siteConfig;
-    const [showAll, setShowAll] = useState(false);
+    const [showAll, setShowAll] = useState(initialShowAll);
 
     if (!showcase) return null;
 
@@ -30,7 +31,7 @@ export default function ProjectShowcase() {
     const displayedProjects = showAll ? showcase.projects : showcase.projects.slice(0, desktopLimit);
 
     return (
-        <section className="py-24 px-6 bg-[#FAFAFA]">
+        <section id="projects" className="py-24 px-6 bg-[#FAFAFA]">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-16">
@@ -45,18 +46,11 @@ export default function ProjectShowcase() {
                 {/* Projects Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                     {displayedProjects.map((project, index) => (
-                        <motion.a
+                        <Link
                             key={project.title}
-                            href={project.link || '#'}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.4 }}
-                            // Logic: If on mobile (block), hide items > 3 unless showAll. 
-                            // If on desktop (sm/lg), always show up to 6 initially.
-                            // We use Tailwind's `hidden` utility combined with index check.
+                            to={`/project/${project.slug || '#'}`}
                             className={`group block bg-white rounded-2xl p-3 border border-gray-100 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 
-                                ${!showAll && index >= mobileLimit ? 'hidden sm:block' : 'block'}
+                                ${showAll ? 'block' : (index >= 4 ? 'hidden lg:block' : (index >= 3 ? 'hidden sm:block' : 'block'))}
                             `}
                         >
                             {/* Image Container */}
@@ -78,7 +72,7 @@ export default function ProjectShowcase() {
                                     {project.description}
                                 </p>
                             </div>
-                        </motion.a>
+                        </Link>
                     ))}
                 </div>
 

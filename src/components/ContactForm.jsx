@@ -26,7 +26,7 @@ export default function ContactForm() {
     };
 
     return (
-        <section className="relative py-24 md:py-32 overflow-hidden bg-[#FAFAFA]">
+        <section id="contact" className="relative py-24 md:py-32 overflow-hidden bg-white">
 
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-[0.03]">

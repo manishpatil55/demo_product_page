@@ -18,6 +18,9 @@ export default function Hero() {
     const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
     const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
 
+    // Moved useTransform to top level to fix React Hook violation
+    const glareOpacity = useTransform(mouseX, [-0.5, 0.5], [0, 0.3]);
+
     function handleMouseMove({ clientX, clientY, currentTarget }) {
         const { width, height, left, top } = currentTarget.getBoundingClientRect();
         const xPct = (clientX - left) / width - 0.5;
@@ -159,7 +162,7 @@ export default function Hero() {
 
                     {/* Screen Glare (Reflection) - Subtle */}
                     <motion.div
-                        style={{ opacity: useTransform(mouseX, [-0.5, 0.5], [0, 0.3]) }}
+                        style={{ opacity: glareOpacity }}
                         className="absolute inset-[3px] rounded-[50px] z-[60] bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"
                     />
 
