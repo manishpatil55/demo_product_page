@@ -19,12 +19,10 @@ import FloatingSocials from '../components/FloatingSocials';
 // Section Components
 import Hero from '../components/Hero';
 import Carousel from '../components/Carousel';
-import ProductDetails from '../components/ProductDetails';
 import Pricing from '../components/Pricing';
 import ProjectShowcase from '../components/ProjectShowcase';
 import Testimonials from '../components/Testimonials';
 import TechTiles from '../components/TechTiles';
-import Marquee from '../components/Marquee';
 import ContactForm from '../components/ContactForm';
 
 export default function Home() {
@@ -73,13 +71,11 @@ export default function Home() {
                 <ScrollProgress />
                 <Navbar />
                 <Hero />
-                <ProductDetails />
                 <Carousel />
                 <TechTiles />
                 <ProjectShowcase />
                 <Pricing />
                 <Testimonials />
-                <Marquee />
                 <div id="contact">
                     <ContactForm />
                 </div>

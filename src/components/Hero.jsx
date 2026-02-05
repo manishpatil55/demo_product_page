@@ -38,7 +38,7 @@ export default function Hero() {
     return (
         <section
             ref={containerRef}
-            className="relative min-h-screen flex flex-col items-center justify-start pt-28 pb-0 overflow-hidden bg-gradient-to-b from-[#FAFAFA] to-white"
+            className="relative min-h-screen flex flex-col items-center justify-start pt-28 pb-0 overflow-hidden bg-gradient-to-b from-[#FAFAFA] to-[#FAFAFA]"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
         >

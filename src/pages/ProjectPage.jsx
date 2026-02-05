@@ -4,13 +4,11 @@
  * ============================================================================
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Zap, MapPin, Bell, CreditCard, Clock, MessageSquare, Globe } from 'lucide-react';
-import Lenis from 'lenis';
+import { ChevronRight, ArrowRight, Zap, MapPin, Bell, CreditCard, Clock, MessageSquare, Globe } from 'lucide-react';
 import siteConfig from '../config/siteConfig';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
 import Carousel from '../components/Carousel';
@@ -37,20 +35,48 @@ export default function ProjectPage() {
         }
     };
 
-    useEffect(() => {
-        // Scroll to top immediately when page loads or slug changes
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Use useLayoutEffect to fix scroll before paint
+    useLayoutEffect(() => {
+        // 1. Prevent browser scroll restoration
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+
+        // 2. CLEAR HASH to prevent auto-scroll to #contact
+        if (window.location.hash) {
+            window.history.replaceState(null, null, ' ');
+        }
+
+        // 3. Force Scroll to Top (Native)
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+        // 4. CSS Reset (Ensure Lenis/Overflow didn't break things)
+        document.documentElement.style.scrollBehavior = 'auto'; // Disable smooth scroll for reset
+        document.documentElement.style.height = 'auto';
+        document.body.style.height = 'auto';
+        document.body.style.overflow = 'auto';
+
+        // 5. Fallback for potential race conditions (Multiple checks)
+        const timers = [
+            setTimeout(() => window.scrollTo(0, 0), 10),
+            setTimeout(() => window.scrollTo(0, 0), 100),
+            setTimeout(() => window.scrollTo(0, 0), 300)
+        ];
+
+        return () => timers.forEach(t => clearTimeout(t));
     }, [slug]);
 
     if (!project) return null;
 
     return (
         <div className="min-h-screen font-sans bg-gray-900 text-gray-900 selection:bg-blue-100 selection:text-blue-900 overscroll-none">
-            <Navbar />
+            {/* No Navbar on Project Detail Page */}
 
             {/* 1. HERO SECTION (Liquid Theme Animation) */}
             <header
-                className="relative min-h-screen pt-24 pb-32 px-6 md:px-12 overflow-hidden bg-gray-900 flex flex-col justify-center"
+                className="relative min-h-screen pt-12 pb-32 px-6 md:px-12 overflow-hidden bg-gray-900 flex flex-col justify-center"
             >
 
 
@@ -76,9 +102,18 @@ export default function ProjectPage() {
 
                 <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-8 items-center relative z-10">
                     <div className="text-white space-y-6">
-                        <Link to="/" className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-6 text-sm font-medium transition-colors">
-                            <ArrowLeft className="w-4 h-4" /> Back to Projects
-                        </Link>
+                        {/* Breadcrumbs */}
+                        <nav className="flex items-center gap-2 text-sm font-medium mb-6">
+                            <Link to="/" className="text-white/60 hover:text-white transition-colors">
+                                Home
+                            </Link>
+                            <ChevronRight className="w-4 h-4 text-white/40" />
+                            <Link to="/#work" className="text-white/60 hover:text-white transition-colors">
+                                Projects
+                            </Link>
+                            <ChevronRight className="w-4 h-4 text-white/40" />
+                            <span className="text-white">{project.title}</span>
+                        </nav>
 
                         <motion.h1
                             initial={{ opacity: 0, y: 40 }}
@@ -220,9 +255,9 @@ export default function ProjectPage() {
                 </div>
             </header>
 
-            {/* 2. TECH STACK MARQUEE */}
+            {/* 2. TECH STACK */}
             {landing.techStack && (
-                <section className="py-16 border-b border-gray-100 bg-white">
+                <section className="py-16 border-b border-gray-100 bg-[#FAFAFA]">
                     <div className="max-w-7xl mx-auto px-6 text-center">
                         <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-10">Powering Next-Gen Apps</p>
                         <div className="flex flex-wrap justify-center gap-4 md:gap-6">
@@ -247,7 +282,7 @@ export default function ProjectPage() {
 
             {/* 3. PLATFORM MODULES */}
             {landing.modules && (
-                <section className="py-24 px-6 bg-white">
+                <section className="py-24 px-6 bg-[#FAFAFA]">
                     <div className="max-w-[1300px] mx-auto space-y-16">
                         <div className="text-center space-y-4">
                             <h2 className="text-3xl md:text-5xl font-bold">A Complete Ecosystem</h2>
@@ -286,7 +321,7 @@ export default function ProjectPage() {
 
             {/* 4. RADIAL FEATURE SHOWCASE */}
             {landing.radialFeatures && (
-                <section className="py-32 px-6 overflow-hidden bg-white">
+                <section className="py-32 px-6 overflow-hidden bg-[#FAFAFA]">
                     <div className="max-w-[1400px] mx-auto text-center mb-20">
                         <h2 className="text-3xl md:text-5xl font-bold mb-4">Packed with Powerful Features</h2>
                         <p className="text-gray-500">Everything you need to scale your business.</p>
@@ -330,7 +365,7 @@ export default function ProjectPage() {
                     label="App Preview"
                     title="Take a Glance"
                     description="Beautifully crafted screens for the best user experience."
-                    align="left"
+                    align="center"
                     themeColor={landing.themeColor}
                     variant="screenshot"
                 />

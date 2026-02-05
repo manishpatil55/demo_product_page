@@ -337,10 +337,10 @@ const siteConfig = {
         headline: 'Turning Visions Into Digital Reality',
         projects: [
             {
-                slug: 'lal-sweets',
-                title: 'Lal Sweets Ecom',
+                slug: 'pikachu',
+                title: 'Pikachu',
                 description: 'Modern sweets store with responsive design for smooth shopping.',
-                client: 'Lal Sweets',
+                client: 'Pikachu',
                 role: 'Full Stack Development',
                 timeline: '3 Months',
                 challenge: 'The client needed to transition from a traditional brick-and-mortar shop to a digital storefront without losing their brand heritage. They required a system that could handle high traffic during festivals and manage perishable inventory.',
@@ -353,7 +353,7 @@ const siteConfig = {
                 ],
                 // NEW: Landing Page Specific Config based on User References
                 landingPage: {
-                    themeColor: '#D12053', // Zomato Red
+                    themeColor: '#C4A43B', // Luxury Gold
                     hero: {
                         title: "Zomato Like Food Delivery App Development Solution",
                         subtitle: "Launch a Zomato like food delivery app with a fully customizable, feature-rich solution designed to help you start and scale your online food ordering business.",
@@ -364,7 +364,7 @@ const siteConfig = {
                     about: {
                         title: "What is Zomato like food delivery app?",
                         description: "Zomato like food delivery app is a robust and user-friendly online food ordering and delivery service that enables users to browse nearby restaurants, explore menus, place instant orders, and get their favorite meals delivered right to their doorstep. \n\nMost notably, our custom solution comes with dedicated panels for Partners (Restaurants), Customers, and Delivery Boys, ensuring smooth operations across the platform.",
-                        image: "/web-platform.png" // Placeholder for the 'Happy Woman/Pizza' image
+                        image: "/pikachu.png" // Placeholder for the 'Happy Woman/Pizza' image
                     },
                     techStack: [
                         { name: 'React Native', type: 'Mobile', logo: 'https://cdn.worldvectorlogo.com/logos/react-native-1.svg' },
@@ -419,15 +419,15 @@ const siteConfig = {
                     author: "Rohan Lal",
                     role: "Owner, Lal Sweets"
                 },
-                image: '/web-platform.png',
+                image: '/mobile-app.png',
                 link: '#'
             },
             // ... (keeping other projects same, just adding new ones at the end) ...
             {
-                slug: 'kirtilals-luxury',
-                title: 'Kirtilals : Luxury',
+                slug: 'charizard',
+                title: 'Charizard',
                 description: 'Premium diamond-jewellery store with elegant UX for luxury buyers.',
-                client: 'Kirtilals',
+                client: 'Charizard',
                 role: 'UI/UX & Frontend',
                 timeline: '4 Months',
                 challenge: 'Selling high-value diamond jewelry online requires immense trust. The existing site felt outdated and didn\'t reflect the premium nature of the products, leading to high cart abandonment.',
@@ -439,7 +439,7 @@ const siteConfig = {
                     'Secure High-Value Checkout'
                 ],
                 landingPage: {
-                    themeColor: '#C4A43B', // Luxury Gold
+                    themeColor: '#e3710eff', // orange
                     hero: {
                         title: "Premium Jewelry E-commerce Platform",
                         subtitle: "Create a luxury digital boutique experience with stunning 3D product views, AR try-on, and secure high-value transactions.",
@@ -450,7 +450,7 @@ const siteConfig = {
                     about: {
                         title: "What is a Luxury E-commerce Platform?",
                         description: "A premium jewelry e-commerce solution designed to replicate the in-store buying experience online. Features immersive product visualization, personalized recommendations, and white-glove customer service integration.",
-                        image: "/web-platform.png"
+                        image: "/charizard.png"
                     },
                     techStack: [
                         { name: 'Next.js', type: 'Frontend', logo: 'https://cdn.worldvectorlogo.com/logos/nextjs-2.svg' },
@@ -499,10 +499,10 @@ const siteConfig = {
                 link: '#'
             },
             {
-                slug: 'tradescribe',
-                title: 'Tradescribe',
+                slug: 'bulbasour',
+                title: 'Bulbasour',
                 description: 'Built a sleek journaling platform for tracking trades with AI-backed analytics.',
-                client: 'FinTech Startup',
+                client: 'Bulbasour',
                 role: 'Product Development',
                 timeline: '6 Months',
                 challenge: 'Traders needed a way to log emotions and strategies alongside their P&L, but existing tools were clunky spreadsheets. They needed actionable insights, not just data entry.',
@@ -520,12 +520,12 @@ const siteConfig = {
                         subtitle: "Track your trades, analyze patterns, and get personalized coaching with our intelligent trading journal solution.",
                         pills: ["AI Analysis", "Pattern Recognition", "Emotional Tracking", "Performance Metrics"],
                         cta: "Get a Quote",
-                        image: "/analytics.png"
+                        image: "/bulbasour.png"
                     },
                     about: {
                         title: "What is Tradescribe?",
                         description: "Tradescribe is an intelligent trading journal that goes beyond simple logging. It uses AI to analyze your trading patterns, correlate performance with emotional states, and provide actionable coaching tips to improve your profitability.",
-                        image: "/analytics.png"
+                        image: "/bulbasour.png"
                     },
                     techStack: [
                         { name: 'React', type: 'Frontend', logo: 'https://cdn.worldvectorlogo.com/logos/react-2.svg' },
@@ -574,10 +574,10 @@ const siteConfig = {
                 link: '#'
             },
             {
-                slug: 'murzban-clothing',
-                title: 'Murzban: Luxury',
+                slug: 'pikachu',
+                title: 'Pikachu',
                 description: 'Modern online store for curated men\'s & women\'s designer fashion.',
-                client: 'Murzban',
+                client: 'Pikachu',
                 role: 'E-commerce Theme',
                 timeline: '2 Months',
                 challenge: 'The brand needed a minimalist, image-first platform that let the clothing speak for itself, while maintaining fast load times for huge lookbook galleries.',
@@ -589,18 +589,18 @@ const siteConfig = {
                     'Size Guide Algorithm'
                 ],
                 landingPage: {
-                    themeColor: '#1F1F1F', // Sleek Black
+                    themeColor: '#df6161ff', // pink
                     hero: {
                         title: "Luxury Fashion E-commerce Platform",
                         subtitle: "Create a minimalist, image-first shopping experience that lets your designer collections speak for themselves.",
                         pills: ["Minimal UI", "Lookbook Mode", "Instagram Sync", "Fast Loading"],
                         cta: "Get a Quote",
-                        image: "/vendor-portal.png"
+                        image: "/pikachu.png"
                     },
                     about: {
                         title: "What is a Fashion E-commerce Platform?",
                         description: "A premium fashion storefront designed to showcase designer collections with full-screen photography, seamless navigation, and social media integration for modern brands.",
-                        image: "/vendor-portal.png"
+                        image: "/pikachu.png"
                     },
                     techStack: [
                         { name: 'Shopify', type: 'Platform', logo: 'https://cdn.worldvectorlogo.com/logos/shopify.svg' },

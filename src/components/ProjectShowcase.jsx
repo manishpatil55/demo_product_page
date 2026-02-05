@@ -49,6 +49,7 @@ export default function ProjectShowcase({ initialShowAll = false }) {
                         <Link
                             key={project.title}
                             to={`/project/${project.slug || '#'}`}
+                            onClick={() => window.scrollTo(0, 0)}
                             className={`group block bg-white rounded-2xl p-3 border border-gray-100 shadow-[0_2px_8px_-3px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 
                                 ${showAll ? 'block' : (index >= 4 ? 'hidden lg:block' : (index >= 3 ? 'hidden sm:block' : 'block'))}
                             `}

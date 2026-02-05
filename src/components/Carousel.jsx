@@ -69,7 +69,7 @@ export default function Carousel({
     if (!carouselItems || carouselItems.length === 0) return null;
 
     return (
-        <section className="py-24 px-5 bg-white overflow-hidden select-none">
+        <section className="py-24 px-5 bg-[#FAFAFA] overflow-hidden select-none">
             <div className={`mb-16 max-w-7xl mx-auto ${align === 'center' ? 'text-center' : 'text-left'}`}>
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -167,15 +167,17 @@ export default function Carousel({
                                         }}
                                     >
                                         {variant === 'screenshot' ? (
-                                            // SCREENSHOT VARIANT: Simple, clean image focus
-                                            <div className={`w-full h-full rounded-[32px] overflow-hidden relative shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] bg-gray-900 border-4 border-gray-900 group ${isCenter ? 'ring-2 ring-gray-100' : ''}`}>
-                                                {item.image && (
-                                                    <img
-                                                        src={item.image}
-                                                        alt={item.title || "Screenshot"}
-                                                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                                                    />
-                                                )}
+                                            // SCREENSHOT VARIANT: Clean white card look (matches Home carousel)
+                                            <div className={`w-full h-full rounded-[32px] p-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] bg-white border border-gray-100 group ${isCenter ? 'ring-4 ring-gray-50' : ''}`}>
+                                                <div className="w-full h-full rounded-[24px] overflow-hidden relative bg-gray-50">
+                                                    {item.image && (
+                                                        <img
+                                                            src={item.image}
+                                                            alt={item.title || "Screenshot"}
+                                                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                                                        />
+                                                    )}
+                                                </div>
                                             </div>
                                         ) : (
                                             // FEATURE VARIANT: Standard card with header and text
